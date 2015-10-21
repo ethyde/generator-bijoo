@@ -11,7 +11,7 @@ If you have never use Yeoman before
 
 This Generator are not published; so to test, or use it :
 
-* clone the repo using ```git clone```
+* clone the repo using ```git clone https://github.com/ethyde/generator-bijoo.git```
 * navigate to the root folder ```cd generator-bijoo```
 * use ```npm link``` to create a node symlink
 
