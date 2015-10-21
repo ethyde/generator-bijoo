@@ -1,0 +1,11 @@
+{
+    "name": "generator-perso",
+    "version": "0.1.0",
+    "description": "",
+    "keywords": ["yeoman-generator"],
+    "private": true,
+    "dependencies": {
+        "chalk": "^0.5.1",
+        "yeoman-generator": "^0.17.3"
+    }
+}
