@@ -1,0 +1,7 @@
+
+# Fichiers compilés
+dist/
+
+# npm
+node_modules/
+bower_components/

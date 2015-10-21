@@ -1,0 +1,77 @@
+
+form {
+
+    fieldset { border: 0; }
+
+    textarea { resize: vertical; }
+
+    input { .border-radius(0); }
+
+    legend {
+        visibility: hidden;
+        position: absolute;
+        top: -9999px;
+    }
+
+    button {
+        background-color: transparent;
+        cursor: pointer;
+    }
+}
+
+/*  Common form
+    ------------------------------------------------------------------------- */
+
+.commonForm {
+
+    label {
+        .bold;
+        &.required:after{
+            content: "*";
+        }
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+        border: 0 none;
+    }
+
+    textarea {
+        height: 100px;
+        padding: 10px;
+    }
+
+    .formPart {
+        margin-bottom: 30px;
+    }
+
+    .formEntry {
+        margin-bottom: 20px;
+    }
+
+    .formActions {
+        text-align: center;
+    }
+
+    .formMentions {
+        font-size: 1.1rem;
+    }
+
+    // Errors
+    .formError {
+        label {
+            color: @error;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="tel"] {
+            color: @error;
+            border: 1px solid @error;
+        }
+    }
+}
