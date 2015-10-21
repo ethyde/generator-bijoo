@@ -1,11 +1,10 @@
 {
-    "name": "generator-perso",
+    "name": "generator-bijoo",
     "version": "0.1.0",
-    "description": "",
+    "description": "A Yeoman Generator with Bijoo in mind",
     "keywords": ["yeoman-generator"],
     "private": true,
     "dependencies": {
-        "chalk": "^0.5.1",
-        "yeoman-generator": "^0.17.3"
+        "yeoman-generator": "^0.20.3"
     }
 }

@@ -1,0 +1,8 @@
+{
+    "name": "<%= projectName %>",
+    "version": "0.1.0",
+    "dependencies": {
+        "jquery": "1.11.3",
+        "bijoostrap": "https://github.com/balix/bijoostrap.git"
+    }
+}
