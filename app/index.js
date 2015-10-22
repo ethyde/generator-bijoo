@@ -10,7 +10,7 @@ var BijooGenerator = yeoman.generators.Base.extend({
         var done = this.async();
 
         var welcome =
-        '\n WelCoum to the Bijoo-Generator \n';
+        "\n WelCoum to the Bijoo-Generator \n";
 
         // have Yeoman greet the user
         console.log(welcome);
