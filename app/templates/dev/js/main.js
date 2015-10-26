@@ -1,22 +1,22 @@
 ;(function( window, document, $, undefined ) {
-    'use strict';
+    "use strict";
 
     // Init project namespace
     var PROJECT_NAMESPACE = PROJECT_NAMESPACE || {};
 
     PROJECT_NAMESPACE.option = {
-        option_1: 'string', // String
+        option_1: "string", // String
         option_2: 5, // Value
         option_3: null, // null
         option_4: function(){ // Function
             return this.option_1; // Previous defined var
         }
-    }
+    };
 /*  ============================================================================
     COMMON
     ========================================================================= */
 
-    PROJECT_NAMESPACE.init = function(){}
+    PROJECT_NAMESPACE.init = function(){};
 
 /*  ============================================================================
     NAVIGATION

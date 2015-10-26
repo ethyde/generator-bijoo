@@ -26,6 +26,10 @@ module.exports = function( grunt ) {
 
     // load all task listed and speed up build process
     require( "jit-grunt" )( grunt );
+    
+    // Workaround for stylelint
+    var fs = require( "fs" ),
+    stylelintConfig = JSON.parse( fs.readFileSync( "etc/.stylelintrc", "utf8" ) );
 
     // Project configuration.
     grunt.initConfig( {
@@ -37,7 +41,7 @@ module.exports = function( grunt ) {
             banner: "/*! <%%= pkg.name %> - v<%%= pkg.version %> - <%%= meta.day %> <%%= meta.hour %> */\n",
             dev: {
                 assets: "<%= whereDevAssets %>",
-                less: "<%%= meta.dev.assets %>/less",
+                css: "<%%= meta.dev.assets %>/css",
                 js: "<%%= meta.dev.assets %>/js",
                 img: "<%%= meta.dev.assets %>/images",
                 fonts: "<%%= meta.dev.assets %>/fonts"
@@ -54,6 +58,12 @@ module.exports = function( grunt ) {
         clean: {
             assets: [ "<%%= meta.prod.assets %>" ]
         },
+        eslint: {
+            options: {
+                configFile: "conf/.eslintrc"
+            },
+            target: ["<%%= meta.dev.js %>/main.js"]
+        },
         // Copy files and folders.
         copy: {
             font: {
@@ -65,9 +75,9 @@ module.exports = function( grunt ) {
             jsvendor: {
                 expand: true,
                 flatten: true,
-                cwd: "<%= bower.directory %>/",
+                cwd: "<%%= bower.directory %>/",
                 src: [ "jquery/dist/jquery.min.js" ],
-                dest: "<%= meta.prod.js %>/vendor/"
+                dest: "<%%= meta.prod.js %>/vendor/"
             }
         },
         // Concat JS files
@@ -77,8 +87,7 @@ module.exports = function( grunt ) {
                 sourceMap: true
             },
             dev: {
-                src: [ "<%%= meta.dev.js %>/plugins.js",
-                    "<%%= meta.dev.js %>/plugins/*.js",
+                src: [ "<%%= meta.dev.js %>/plugin/*.js",
                     "<%%= meta.dev.js %>/main.js"
                 ],
                 dest: "<%%= meta.prod.js %>/main.js"
@@ -94,30 +103,59 @@ module.exports = function( grunt ) {
                 dest: "<%%= meta.prod.js %>/main.js"
             }
         },
-        // Grunt contrib less task
-        less: {
+        // Grunt PostCSS task
+        postcss: {
             options: {
-                banner: "<%%= meta.banner %>"
+                map: true,
+                processors: [
+                    require("postcss-import"),
+                    require("postcss-custom-properties"),
+                    require("postcss-calc"),
+                    require("postcss-custom-media"),
+                    require("postcss-media-minmax"),
+                    require("postcss-custom-selectors"),
+                    require("postcss-color-hex-alpha"),
+                    require("postcss-color-function"),
+                    require("postcss-selector-matches"),
+                    require("postcss-selector-not"),
+                    require("postcss-neat")({
+                        neatMaxWidth: "100%"
+                    }),
+                    require("postcss-nested"),
+                    require("css-mqpacker")(),
+                    require("autoprefixer")({
+                        browsers: ["> 1%", "IE 9"]
+                    })
+                ]
+            },
+            lint: {
+                options: {
+                    map: false,
+                    processors: [
+                        require( 'stylelint' )(stylelintConfig)
+                    ]
+                },
+                src: [ "dev/css/**/*.css" ]
             },
             dev: {
-                options: {
-                    sourceMap: true,
-                    sourceMapFileInline: true,
-                    compress: false
-                },
-                src: "<%%= meta.dev.less %>/main.less",
+                src: "<%%= meta.dev.css %>/main.css",
                 dest: "<%%= meta.prod.css %>/main.css"
             },
             prod: {
                 options: {
-                    plugins: [
-                        new ( require( "less-plugin-clean-css" ) )( {
-                            "advanced": true,
-                            "compatibility": "ie9"
-                        } )
-                    ]
+                    map: false
                 },
-                src: "<%%= meta.dev.less %>/main.less",
+                src: "<%%= meta.dev.css %>/main.css",
+                dest: "<%%= meta.prod.css %>/main.css"
+            }
+        },
+        // Minify CSS
+        csswring: {
+            options: {
+                removeAllComments: true
+            },
+            prod: {
+                src: "<%%= postcss.dev.dest %>",
                 dest: "<%%= meta.prod.css %>/main.css"
             }
         },
@@ -138,7 +176,7 @@ module.exports = function( grunt ) {
                 livereload: 6325
             },
             js: {
-                files: [ "<%%= meta.dev.js %>/main.js", "<%%= meta.dev.js %>/plugins/*.js" ],
+                files: [ "<%%= meta.dev.js %>/main.js", "<%%= meta.dev.js %>/plugin/*.js" ],
                 tasks: [ "newer:concat" ]
             },
             images: {
@@ -146,16 +184,18 @@ module.exports = function( grunt ) {
                 tasks: [ "newer:imagemin" ]
             },
             css: {
-                files: "<%%= meta.dev.less %>/**/*.less",
-                tasks: [ "newer:less:dev" ]
+                files: "<%%= meta.dev.css %>/**/*.css",
+                tasks: [ "newer:postcss:dev" ]
             }
         }
     } );
 
     // This is the default task being executed if Grunt
     // is called without any further parameter.
-    grunt.registerTask( "default", [ "less:dev", "concat", "imagemin", "copy" ] );
+    grunt.registerTask( "default", [ "postcss:dev", "concat", "imagemin", "copy" ] );
 
-    grunt.registerTask( "prod", [ "clean", "less:prod", "concat", "uglify", "imagemin", "copy" ] );
+    grunt.registerTask( "lint", [ "postcss:lint", "eslint" ] );
+
+    grunt.registerTask( "prod", [ "clean", "postcss:prod", "csswring", "concat", "uglify", "imagemin", "copy" ] );
 
 };
