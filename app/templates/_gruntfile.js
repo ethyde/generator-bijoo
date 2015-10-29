@@ -132,7 +132,9 @@ module.exports = function( grunt ) {
                 options: {
                     map: false,
                     processors: [
-                        require( 'stylelint' )(stylelintConfig)
+                        require( 'stylelint' )({
+                            config: stylelintConfig
+                        })
                     ]
                 },
                 src: [ "<%%= meta.dev.css %>/**/*.css" ]
