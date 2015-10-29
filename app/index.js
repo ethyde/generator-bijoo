@@ -47,7 +47,7 @@ var BijooGenerator = yeoman.generators.Base.extend({
         }.bind(this));
     },
     processFilesAndFolder: function(){
-        this.directory("dev", this.whereDevAssets);
+        this.directory("assets", this.whereDevAssets);
         this.directory("etc", "etc");
 
         this.template("_gruntfile.js", "gruntfile.js");

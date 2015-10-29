@@ -135,7 +135,7 @@ module.exports = function( grunt ) {
                         require( 'stylelint' )(stylelintConfig)
                     ]
                 },
-                src: [ "dev/css/**/*.css" ]
+                src: [ "<%%= meta.dev.css %>/**/*.css" ]
             },
             dev: {
                 src: "<%%= meta.dev.css %>/main.css",
