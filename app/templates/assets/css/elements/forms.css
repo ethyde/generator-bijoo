@@ -5,8 +5,6 @@ form {
 
     textarea { resize: vertical; }
 
-    input { .border-radius(0); }
-
     legend {
         visibility: hidden;
         position: absolute;
@@ -19,13 +17,12 @@ form {
     }
 }
 
-/*  Common form
-    ------------------------------------------------------------------------- */
+/* Common form
+   -------------------------------------------------------------------------- */
 
 .commonForm {
 
     label {
-        .bold;
         &.required:after{
             content: "*";
         }
@@ -60,18 +57,18 @@ form {
         font-size: 1.1rem;
     }
 
-    // Errors
+    /* Errors */
     .formError {
         label {
-            color: @error;
+            color: var(--color_error);
         }
 
         input[type="text"],
         input[type="password"],
         input[type="email"],
         input[type="tel"] {
-            color: @error;
-            border: 1px solid @error;
+            color: var(--color_error);
+            border: 1px solid var(--color_error);
         }
     }
 }

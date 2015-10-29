@@ -1,5 +1,5 @@
 
-@media screen and (max-width: 980px) {}
+@media (--viewport-desktop) {}
 
 @media screen and (max-width: 768px) {}
 

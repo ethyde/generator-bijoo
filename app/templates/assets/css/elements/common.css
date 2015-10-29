@@ -1,7 +1,5 @@
-
-// @font-face { .font-face(font_name, 'font_name'); }
-
 html {
+    box-sizing: border-box;
     font-size:62.5%;
 }
 
@@ -13,12 +11,14 @@ body {
 body {
     font: 1.2em/1.6em Verdana, sans-serif;
     background-color: #FFF;
-    color: @baseColor;
+    color: var(--mainColor);
 }
 
-* {
-    .box-sizing();
+/* apply a natural box layout model to all elements, but allowing components to change */
+*, *:before, *:after {
+  box-sizing: inherit;
 }
+
 
 hr {
     visibility: hidden;
@@ -28,13 +28,12 @@ hr {
 
 a {
     text-decoration: none;
-    color: @baseColor;
+    color: var(--mainColor);
 }
 
 p {
     line-height: 2rem;
     margin-bottom: 20px;
-    strong { .bold; }
 }
 
 sup,
@@ -63,7 +62,7 @@ video {
 
 time { display: inline-block; }
 
-/*  ::-moz-selection {
+/* ::-moz-selection {
     text-shadow: none;
     background: #000;
 }
@@ -73,10 +72,20 @@ time { display: inline-block; }
     background: #000;
 } */
 
-*:focus { outline: none; } // Chrome outline
+/* Chrome outline */
+*:focus { outline: none; }
 
-/*  Titles
-    ------------------------------------------------------------------------- */
+/* some var() & calc() */
+body {
+    color: var(--mainColor);
+
+    font-size: var(--fontSize);
+    line-height: calc(var(--fontSize) * 1.5);
+    padding: calc((var(--fontSize) / 2) + 1px);
+}
+
+/* Titles
+   -------------------------------------------------------------------------- */
 
 .tl1 {
     font-size: 3rem;
@@ -96,21 +105,24 @@ time { display: inline-block; }
     margin-bottom: 10px;
 }
 
-/*  Links
-    ------------------------------------------------------------------------- */
+/* Custom Selector usage */
+:--heading { margin-top: 0 }
+
+/* Links
+   -------------------------------------------------------------------------- */
 
 .lk {
 }
 
-/*  Buttons
-    ------------------------------------------------------------------------- */
+/* Buttons
+   -------------------------------------------------------------------------- */
 
 .btn1 {
 }
 
-/*  Lists
-    ------------------------------------------------------------------------- */
-
+/* Lists
+   -------------------------------------------------------------------------- */
+   
 .list1 {
     margin-bottom: 20px;
     & > li {
@@ -118,8 +130,8 @@ time { display: inline-block; }
     }
 }
 
-/*   Others
-    ------------------------------------------------------------------------- */
+/* Others
+   -------------------------------------------------------------------------- */
 
 .hr1 {
     height: 1px;
@@ -127,8 +139,8 @@ time { display: inline-block; }
     margin-bottom: 20px;
 }
 
-/*   Usefull
-    ------------------------------------------------------------------------- */
+/* Usefull
+   -------------------------------------------------------------------------- */
 
 .mb10 { margin-bottom:10px !important; }
 .mb20 { margin-bottom:20px !important; }
@@ -162,7 +174,7 @@ time { display: inline-block; }
 }
 
 .clearfix { display: inline-block; }
-/*  \*/ * html .clearfix { height: 1%; }
+/* \*/ * html .clearfix { height: 1%; }
 .clearfix { display: block; }
 
 .bijoux_plage { visibility: visible !important; }

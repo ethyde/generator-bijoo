@@ -1,50 +1,49 @@
 /*  Vendors
     ------------------------------------------------------------------------- */
 
-    @import "vendor/reset";
-    @import "vendor/mixins";
+@import "vendor/reset.css";
 
-/*  Vars
+/* Vars
     ------------------------------------------------------------------------- */
 
-    @import "elements/vars";
+@import "elements/vars.css";
 
 /*  ============================================================================
     COMMON
     ========================================================================= */
 
-    @import "elements/common";
+@import "elements/common.css";
 
 /*  ============================================================================
     BODY
     ========================================================================= */
 
-    @import "elements/header";
-    @import "elements/menu";
-    @import "elements/layout";
-    @import "elements/pages";
-    @import "elements/footer";
+@import "elements/header.css";
+@import "elements/menu.css";
+@import "elements/layout.css";
+@import "elements/pages.css";
+@import "elements/footer.css";
 
 /*  ============================================================================
     FORMS
     ========================================================================= */
 
-    @import "elements/forms";
+@import "elements/forms.css";
 
 /*  ============================================================================
     RESPONSIVE
     ========================================================================= */
 
-    @import"elements/responsive";
+@import "elements/responsive.css";
 
 /*  ============================================================================
     RETINA
     ========================================================================= */
 
-    @import"elements/retina";
+@import "elements/retina.css";
 
 /*  ============================================================================
     PRINT
     ========================================================================= */
 
-    @import"elements/print";
+@import "elements/print.css";
