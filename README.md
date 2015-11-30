@@ -4,6 +4,7 @@ Bijoo-Generator
 # Introduction
 First try to make a Yeoman Generator to prepare, scafold, install a project.
 
+
 # Installation
 
 If you have never use Yeoman before
@@ -16,6 +17,7 @@ This Generator are not published; so to test, or use it :
 * use ```npm link``` to create a node symlink
 
 And now you will be able to use ```yo bijoo``` in any project
+
 
 ## Bijoo ask to you !
 
