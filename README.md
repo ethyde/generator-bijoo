@@ -1,10 +1,12 @@
 Bijoo-Generator
 ===============
 
+
 # Introduction
 First try to make a Yeoman Generator to prepare, scafold, install a project.
 
 # Installation
+
 
 If you have never use Yeoman before
 ```npm install -g yo bower grunt-cli```
