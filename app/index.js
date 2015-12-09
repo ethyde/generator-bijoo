@@ -35,6 +35,12 @@ var BijooGenerator = yeoman.generators.Base.extend({
             name: "whereBuildAssets",
             message: "Where to put final build assets files and folders ?",
             default: "dist"
+        },
+        {
+            type: "confirm",
+            name: "babelOrNot",
+            message: "Do you want to use Babel JS (ES6) or old ES5",
+            default: true
         }];
 
         this.prompt(prompts, function (props) {
@@ -42,6 +48,7 @@ var BijooGenerator = yeoman.generators.Base.extend({
             this.cmsFwOrNot = props.cmsFwOrNot;
             this.whereDevAssets = props.whereDevAssets;
             this.whereBuildAssets = props.whereBuildAssets;
+            this.babelOrNot = props.babelOrNot;
 
             done();
         }.bind(this));
