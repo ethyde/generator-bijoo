@@ -60,7 +60,7 @@ module.exports = function( grunt ) {
         },
         eslint: {
             options: {
-                configFile: "conf/.eslintrc"
+                configFile: "etc/.eslintrc"
             },
             target: ["<%%= meta.dev.js %>/main.js"]
         },
@@ -79,7 +79,29 @@ module.exports = function( grunt ) {
                 src: [ "jquery/dist/jquery.min.js" ],
                 dest: "<%%= meta.prod.js %>/vendor/"
             }
-        },
+        },<% if (babelOrNot) { %>
+        // Grunt Babel JS task
+        babel: {
+            options: {
+                sourceMap: "inline",
+                presets: ['es2015']
+            },
+            dev: {
+                src: [ "<%%= meta.dev.js %>/plugin/*.js",
+                    "<%%= meta.dev.js %>/main.js"
+                ],
+                dest: "<%%= meta.prod.js %>/main.js"
+            },
+            prod: {
+                options: {
+                    sourceMap: false,
+                    comments: false,
+                    plugins: ["uglify:after"]
+                },
+                src: "<%%= babel.dev.src %>",
+                dest: "<%%= meta.prod.js %>/main.js"
+            }
+        },<% } else { %>
         // Concat JS files
         concat: {
             options: {
@@ -92,14 +114,15 @@ module.exports = function( grunt ) {
                 ],
                 dest: "<%%= meta.prod.js %>/main.js"
             }
-        },
+        },<% } %>
         // Minify your JS files
         uglify: {
             options: {
                 banner: "<%%= meta.banner %>"
             },
-            prod: {
-                src: "<%%= concat.dev.src %>",
+            prod: {<% if (babelOrNot) { %>
+                src: "<%%= concat.dev.src %>",<% } else { %>
+                src: "<%= babel.prod.src %>",<% } %>
                 dest: "<%%= meta.prod.js %>/main.js"
             }
         },
@@ -194,10 +217,15 @@ module.exports = function( grunt ) {
 
     // This is the default task being executed if Grunt
     // is called without any further parameter.
+    <% if (babelOrNot) { %>
+    grunt.registerTask( "default", [ "postcss:dev", "babel:dev", "imagemin", "copy" ] );
+    grunt.registerTask( "prod", [ "clean", "postcss:prod", "csswring", "babel:prod", "uglify", "imagemin", "copy" ] );
+    <% } else { %>
     grunt.registerTask( "default", [ "postcss:dev", "concat", "imagemin", "copy" ] );
-
+    grunt.registerTask( "prod", [ "clean", "postcss:prod", "csswring", "concat", "uglify", "imagemin", "copy" ] );
+    <% } %>
     grunt.registerTask( "lint", [ "postcss:lint", "eslint" ] );
 
-    grunt.registerTask( "prod", [ "clean", "postcss:prod", "csswring", "concat", "uglify", "imagemin", "copy" ] );
+    
 
 };
