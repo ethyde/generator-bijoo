@@ -1,8 +1,23 @@
 {
     "name": "<%= projectName %>",
-    "version": "0.1.0",
+    "authors": [
+        "Ethyde"
+    ],
+    "private": true,
+    "main": [
+        "js/main.js",
+        "css/main.css",
+    ],
     "dependencies": {
-        "jquery": "1.11.3",
+        "jquery": "^1.11",
+        "resetcss": "http://meyerweb.com/eric/tools/css/reset/reset.css",
         "bijoostrap": "https://github.com/balix/bijoostrap.git"
-    }
+    },
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ]
 }
