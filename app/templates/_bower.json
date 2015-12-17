@@ -6,7 +6,7 @@
     "private": true,
     "main": [
         "js/main.js",
-        "css/main.css",
+        "css/main.css"
     ],
     "dependencies": {
         "jquery": "^1.11",
