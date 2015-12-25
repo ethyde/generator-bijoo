@@ -1,6 +1,6 @@
 {
     "name": "generator-bijoo",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "A Yeoman Generator with Bijoo in mind",
     "keywords": ["yeoman-generator", "Bijoostrap", "Bijoo-generator"],
     "repository": "https://github.com/ethyde/generator-bijoo",

@@ -26,11 +26,7 @@ module.exports = function( grunt ) {
 
     // load all task listed and speed up build process
     require( "jit-grunt" )( grunt );
-    
-    // Workaround for stylelint
-    var fs = require( "fs" ),
-    stylelintConfig = JSON.parse( fs.readFileSync( "etc/.stylelintrc", "utf8" ) );
-
+  
     // Project configuration.
     grunt.initConfig( {
         pkg: grunt.file.readJSON( "package.json" ),
@@ -145,6 +141,7 @@ module.exports = function( grunt ) {
                         neatMaxWidth: "100%"
                     }),
                     require("postcss-nested"),
+                    require("postcss-quantity-queries"),
                     require("css-mqpacker")(),
                     require("autoprefixer")({
                         browsers: ["> 1%", "IE 9"]
@@ -156,7 +153,7 @@ module.exports = function( grunt ) {
                     map: false,
                     processors: [
                         require( 'stylelint' )({
-                            config: stylelintConfig
+                            configFile: "etc/.stylelintrc"
                         })
                     ]
                 },

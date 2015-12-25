@@ -68,6 +68,7 @@ var BijooGenerator = yeoman.generators.Base.extend({
             this.template("_robots.txt", "robots.txt");
             this.template("_humans.txt", "humans.txt");
             this.template("_README.md", "README.md");
+            this.template("_index.html", "index.html");
             this.copy("gitignore", ".gitignore");
             this.copy("gitattributes", ".gitattributes");
             this.copy("htaccess", ".htaccess");
