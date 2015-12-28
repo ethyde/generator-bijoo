@@ -192,6 +192,16 @@ module.exports = function( grunt ) {
                 } ]
             }
         },
+        critical: {
+            prod: {
+                options: {
+                    width: 1280,
+                    height: 768
+                },
+                src: 'http://any_url_you_want.com/',
+                dest: '<%= meta.prod.css %>/critical.css'
+            }
+        },
         // Watch and livereload
         watch: {
             options: {
@@ -216,10 +226,10 @@ module.exports = function( grunt ) {
     // is called without any further parameter.
     <% if (babelOrNot) { %>
     grunt.registerTask( "default", [ "postcss:dev", "babel:dev", "imagemin", "copy" ] );
-    grunt.registerTask( "prod", [ "clean", "postcss:prod", "csswring", "babel:prod", "uglify", "imagemin", "copy" ] );
+    grunt.registerTask( "prod", [ "clean", "postcss:prod", "csswring", "babel:prod", "critical", "uglify", "imagemin", "copy" ] );
     <% } else { %>
     grunt.registerTask( "default", [ "postcss:dev", "concat", "imagemin", "copy" ] );
-    grunt.registerTask( "prod", [ "clean", "postcss:prod", "csswring", "concat", "uglify", "imagemin", "copy" ] );
+    grunt.registerTask( "prod", [ "clean", "postcss:prod", "csswring", "concat", "critical", "uglify", "imagemin", "copy" ] );
     <% } %>
     grunt.registerTask( "lint", [ "postcss:lint", "eslint" ] );
 
