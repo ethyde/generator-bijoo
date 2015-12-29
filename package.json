@@ -10,6 +10,6 @@
         "url": "https://github.com/ethyde"
     },
     "dependencies": {
-        "yeoman-generator": "^0.21"
+        "yeoman-generator": "^0.22"
     }
 }

@@ -21,6 +21,11 @@ var BijooGenerator = yeoman.generators.Base.extend({
             default: "My_Bijoo_project"
         },
         {
+            name: "whatUrl",
+            message: "What is the target for CriticalCSS generation : can be a file ( ./index.html ) or an url (http://url_of_project.dev/)",
+            default: "http://url_of_project.dev/"
+        },
+        {
             type: "confirm",
             name: "cmsFwOrNot",
             message: "Do you use au CMS or Framework ?",
@@ -40,7 +45,7 @@ var BijooGenerator = yeoman.generators.Base.extend({
             type: "confirm",
             name: "babelOrNot",
             message: "Do you want to use Babel JS (ES6) or old ES5",
-            default: true
+            default: false
         }];
 
         this.prompt(prompts, function (props) {
@@ -48,6 +53,7 @@ var BijooGenerator = yeoman.generators.Base.extend({
             this.cmsFwOrNot = props.cmsFwOrNot;
             this.whereDevAssets = props.whereDevAssets;
             this.whereBuildAssets = props.whereBuildAssets;
+            this.whatUrl = props.whatUrl;
             this.babelOrNot = props.babelOrNot;
 
             done();
