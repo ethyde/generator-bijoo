@@ -173,6 +173,7 @@ module.exports = function( grunt ) {
         // Minify CSS
         csswring: {
             options: {
+                map: false,
                 removeAllComments: true
             },
             prod: {
