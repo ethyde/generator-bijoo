@@ -80,7 +80,7 @@ module.exports = function( grunt ) {
         babel: {
             options: {
                 sourceMap: "inline",
-                presets: ['es2015']
+                presets: [ "es2015" ]
             },
             dev: {
                 src: [ "<%%= meta.dev.js %>/plugin/*.js",
@@ -91,8 +91,7 @@ module.exports = function( grunt ) {
             prod: {
                 options: {
                     sourceMap: false,
-                    comments: false,
-                    plugins: ["uglify:after"]
+                    comments: false
                 },
                 src: "<%%= babel.dev.src %>",
                 dest: "<%%= meta.prod.js %>/main.js"
@@ -117,8 +116,8 @@ module.exports = function( grunt ) {
                 banner: "<%%= meta.banner %>"
             },
             prod: {<% if (babelOrNot) { %>
-                src: "<%%= concat.dev.src %>",<% } else { %>
-                src: "<%= babel.prod.src %>",<% } %>
+                src: "<%%= babel.dev.src %>",<% } else { %>
+                src: "<%%= concat.prod.src %>",<% } %>
                 dest: "<%%= meta.prod.js %>/main.js"
             }
         },
@@ -192,6 +191,16 @@ module.exports = function( grunt ) {
                 } ]
             }
         },
+        critical: {
+            prod: {
+                options: {
+                    width: 1280,
+                    height: 768
+                },
+                src: '<%= whatUrl %>',
+                dest: '<%%= meta.prod.css %>/critical.css'
+            }
+        },
         // Watch and livereload
         watch: {
             options: {
@@ -209,20 +218,31 @@ module.exports = function( grunt ) {
                 files: "<%%= meta.dev.css %>/**/*.css",
                 tasks: [ "newer:postcss:dev" ]
             }
+        },
+        concurrent: {
+            base: [ "postcss:dev",
+                    <% if (babelOrNot) { %>"babel:dev"<% } else { %>"concat"<% } %>,
+                    "imagemin",
+                    "copy"
+                    ],
+            prod: [ "postcss:prod",
+                    <% if (babelOrNot) { %>"babel:prod"<% } else { %>"concat"<% } %>,
+                    "imagemin",
+                    "copy"
+                    ],
+            compress: [ "uglify", "csswring" ],
+            lint: [ "postcss:lint", "eslint" ]
         }
     } );
 
     // This is the default task being executed if Grunt
     // is called without any further parameter.
-    <% if (babelOrNot) { %>
-    grunt.registerTask( "default", [ "postcss:dev", "babel:dev", "imagemin", "copy" ] );
-    grunt.registerTask( "prod", [ "clean", "postcss:prod", "csswring", "babel:prod", "uglify", "imagemin", "copy" ] );
-    <% } else { %>
-    grunt.registerTask( "default", [ "postcss:dev", "concat", "imagemin", "copy" ] );
-    grunt.registerTask( "prod", [ "clean", "postcss:prod", "csswring", "concat", "uglify", "imagemin", "copy" ] );
-    <% } %>
-    grunt.registerTask( "lint", [ "postcss:lint", "eslint" ] );
+    grunt.registerTask( "default", [ "concurrent:base" ]);
 
-    
+    // This is the prod task with css, js and images optimisations
+    grunt.registerTask( "prod", [ "clean", "concurrent:prod", "concurrent:compress", "critical" ]);
+
+    // This is the linting task
+    grunt.registerTask( "lint", [ "concurrent:lint" ] );
 
 };
