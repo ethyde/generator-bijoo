@@ -31,6 +31,7 @@
         "postcss-nested": "^1.0.0",
         "postcss-quantity-queries": "^0.4.0",
         "postcss-neat": "^2.4.2",
+        "postcss-assets": "^3.0.3",
         "css-mqpacker":"^4.0.0",
         "grunt-critical": "^0.2.0",
         "stylelint": "^3.1.4",

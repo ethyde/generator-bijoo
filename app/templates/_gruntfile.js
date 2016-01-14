@@ -117,7 +117,7 @@ module.exports = function( grunt ) {
             },
             prod: {<% if (babelOrNot) { %>
                 src: "<%%= babel.dev.src %>",<% } else { %>
-                src: "<%%= concat.prod.src %>",<% } %>
+                src: "<%%= concat.dev.src %>",<% } %>
                 dest: "<%%= meta.prod.js %>/main.js"
             }
         },
@@ -142,6 +142,9 @@ module.exports = function( grunt ) {
                     require("postcss-nested"),
                     require("postcss-quantity-queries"),
                     require("css-mqpacker")(),
+                    require('postcss-assets')({
+                        loadPaths: ['<%%= imagemin.opti.dest %>']
+                    }),
                     require("autoprefixer")({
                         browsers: ["> 1%", "IE 9"]
                     })
